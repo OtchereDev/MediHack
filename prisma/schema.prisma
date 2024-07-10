@@ -21,3 +21,12 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model ForgotPassword {
+  id        Int      @id @default(autoincrement())
+  email     String
+  code      String
+  isUsed    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
