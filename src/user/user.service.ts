@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import otp from 'src/utils/otp';
 import bcrypt from 'bcrypt';
 import { MailService } from 'src/mail/mail.service';
+import { SignupDTO } from 'src/auth/dto/auth.dto';
 
 @Injectable()
 export class UserService {
@@ -72,5 +73,35 @@ export class UserService {
         password: hashPassword,
       },
     });
+  }
+
+  async createUser(body: SignupDTO) {
+    const exist = await this.findOne(body.email);
+
+    if (exist) {
+      return {
+        status: 400,
+        data: {
+          message: 'User with this email already exists',
+        },
+      };
+    }
+
+    const saltRounds = 10;
+    const hashPassword = bcrypt.hashSync(body.password, saltRounds);
+
+    await this.prismaClient.user.create({
+      data: {
+        ...body,
+        password: hashPassword,
+      },
+    });
+
+    return {
+      status: 200,
+      data: {
+        message: 'User successfully created',
+      },
+    };
   }
 }

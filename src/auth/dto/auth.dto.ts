@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, Matches } from 'class-validator';
+import { PASSWORD_REGEX } from 'src/constant/regex';
 
 export class LoginDTO {
   @ApiProperty()
@@ -26,9 +27,23 @@ export class ResetPasswordDTO {
   @ApiProperty()
   code: string;
 
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/, {
+  @Matches(PASSWORD_REGEX, {
     message: 'Provide a strong password',
   })
+  @ApiProperty()
+  password: string;
+}
+
+export class SignupDTO {
+  @IsEmail()
+  @ApiProperty()
+  email: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  name: string;
+
+  @Matches(PASSWORD_REGEX, { message: 'provide a strong password' })
   @ApiProperty()
   password: string;
 }
