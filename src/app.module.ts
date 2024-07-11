@@ -7,6 +7,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ConfigModule } from '@nestjs/config';
 import { MailModule } from './mail/mail.module';
+import { HealthprofessionalModule } from './healthprofessional/healthprofessional.module';
+import { HeathprofessionalController } from './heathprofessional/heathprofessional.controller';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -20,8 +23,12 @@ import { MailModule } from './mail/mail.module';
     }),
 
     MailModule,
+
+    HealthprofessionalModule,
+
+    AdminModule,
   ],
-  controllers: [],
+  controllers: [HeathprofessionalController],
   providers: [PrismaService],
 })
 export class AppModule {}

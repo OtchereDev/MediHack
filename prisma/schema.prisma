@@ -30,3 +30,24 @@ model ForgotPassword {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Professional {
+  id        Int                      @id @default(autoincrement())
+  email     String                   @unique
+  name      String
+  phone     String
+  password  String
+  location  Unsupported("geometry")?
+  createdAt DateTime                 @default(now())
+  updatedAt DateTime                 @updatedAt
+}
+
+model spatial_ref_sys {
+  srid      Int     @id
+  auth_name String? @db.VarChar(256)
+  auth_srid Int?
+  srtext    String? @db.VarChar(2048)
+  proj4text String? @db.VarChar(2048)
+
+  @@ignore
+}
