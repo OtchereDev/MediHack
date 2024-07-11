@@ -1,8 +1,15 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ForgotPasswordDTO, LoginDTO, ResetPasswordDTO } from './dto/auth.dto';
+import {
+  ForgotPasswordDTO,
+  LoginDTO,
+  ResetPasswordDTO,
+  SignupDTO,
+} from './dto/auth.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -19,5 +26,10 @@ export class AuthController {
   @Post('forgot-password')
   async forgotPassword(@Body() body: ResetPasswordDTO) {
     return await this.authService.forgotPassword(body);
+  }
+
+  @Post('signup')
+  async signupUser(@Body() body: SignupDTO) {
+    return await this.authService.createUser(body);
   }
 }

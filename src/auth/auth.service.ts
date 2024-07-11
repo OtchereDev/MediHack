@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
-import { ResetPasswordDTO } from './dto/auth.dto';
+import { ResetPasswordDTO, SignupDTO } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -63,5 +63,9 @@ export class AuthService {
     return {
       message: 'Successfully reset your password',
     };
+  }
+
+  async createUser(body: SignupDTO) {
+    return await this.usersService.createUser(body);
   }
 }
