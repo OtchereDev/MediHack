@@ -4,11 +4,8 @@ import { PrismaService } from './prisma.service';
 import { AuthModule } from './auth/auth.module';
 import { jwtConstants } from './constant/constant';
 import { JwtModule } from '@nestjs/jwt';
-import { MailerModule } from '@nestjs-modules/mailer';
 import { ConfigModule } from '@nestjs/config';
 import { MailModule } from './mail/mail.module';
-import { HealthprofessionalModule } from './healthprofessional/healthprofessional.module';
-import { HeathprofessionalController } from './heathprofessional/heathprofessional.controller';
 import { AdminModule } from './admin/admin.module';
 
 @Module({
@@ -24,11 +21,9 @@ import { AdminModule } from './admin/admin.module';
 
     MailModule,
 
-    HealthprofessionalModule,
-
     AdminModule,
   ],
-  controllers: [HeathprofessionalController],
+  controllers: [],
   providers: [PrismaService],
 })
 export class AppModule {}
