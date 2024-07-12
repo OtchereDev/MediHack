@@ -14,12 +14,13 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               Int                @id @default(autoincrement())
+  email            String             @unique
+  name             String
+  password         String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  EmergencyContact EmergencyContact[]
 }
 
 model ForgotPassword {
@@ -37,9 +38,33 @@ model Professional {
   name      String
   phone     String
   password  String
+  type      ProfessionalType
+  status    ProfessionalStatus       @default(IDLE)
   location  Unsupported("geometry")?
   createdAt DateTime                 @default(now())
   updatedAt DateTime                 @updatedAt
+}
+
+enum ProfessionalStatus {
+  IDLE
+  MOVING
+}
+
+enum ProfessionalType {
+  NURSE
+  EMT
+  AMBULANCE
+}
+
+model EmergencyContact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String
+  address   String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
 }
 
 model spatial_ref_sys {
