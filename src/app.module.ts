@@ -10,6 +10,7 @@ import { AdminModule } from './admin/admin.module';
 import { HospitalModule } from './hospital/hospital.module';
 import { EmergencyModule } from './emergency/emergency.module';
 import { SosModule } from './sos/sos.module';
+import { FirstaidModule } from './firstaid/firstaid.module';
 
 @Module({
   imports: [
@@ -31,6 +32,8 @@ import { SosModule } from './sos/sos.module';
     EmergencyModule,
 
     SosModule,
+
+    FirstaidModule,
   ],
   controllers: [],
   providers: [PrismaService],
