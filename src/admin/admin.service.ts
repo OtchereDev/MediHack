@@ -32,9 +32,9 @@ export class AdminService {
     };
   }
 
-  async updateProfessionalLocation(body: LocationUpdateDTO) {
+  async updateProfessionalLocation(body: LocationUpdateDTO, id: number) {
     const exists = await this.prisma.professional.findFirst({
-      where: { id: body.id },
+      where: { id },
     });
 
     if (!exists) throw new UnauthorizedException();
@@ -42,7 +42,7 @@ export class AdminService {
     await this.prisma.$executeRaw`
       UPDATE "Professional"
       SET "location" = ST_SetSRID(ST_MakePoint(${body.latitude}, ${body.longitude}), 4326)
-      WHERE "id" = ${body.id};
+      WHERE "id" = ${id};
     `;
 
     return {
@@ -51,5 +51,13 @@ export class AdminService {
         message: 'successfully updated location',
       },
     };
+  }
+
+  async findProfessional(email: string) {
+    return this.prisma.professional.findFirst({
+      where: {
+        email,
+      },
+    });
   }
 }
