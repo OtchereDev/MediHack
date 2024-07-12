@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { MailModule } from './mail/mail.module';
 import { AdminModule } from './admin/admin.module';
+import { HospitalModule } from './hospital/hospital.module';
 
 @Module({
   imports: [
@@ -22,6 +23,8 @@ import { AdminModule } from './admin/admin.module';
     MailModule,
 
     AdminModule,
+
+    HospitalModule,
   ],
   controllers: [],
   providers: [PrismaService],
