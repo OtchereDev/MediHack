@@ -13,11 +13,8 @@ export class HospitalService {
       key: process.env.MAP_API,
     };
 
-    console.log('API', process.env.MAP_API);
-
     try {
       const response = await axios.get(endpoint, { params });
-      console.log(response);
       const hospitals = response.data.results;
 
       return {
