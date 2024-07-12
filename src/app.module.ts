@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MailModule } from './mail/mail.module';
 import { AdminModule } from './admin/admin.module';
 import { HospitalModule } from './hospital/hospital.module';
+import { EmergencyModule } from './emergency/emergency.module';
 
 @Module({
   imports: [
@@ -25,6 +26,8 @@ import { HospitalModule } from './hospital/hospital.module';
     AdminModule,
 
     HospitalModule,
+
+    EmergencyModule,
   ],
   controllers: [],
   providers: [PrismaService],
