@@ -21,6 +21,7 @@ model User {
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   EmergencyContact EmergencyContact[]
+  SOS              SOS[]
 }
 
 model ForgotPassword {
@@ -43,6 +44,7 @@ model Professional {
   location  Unsupported("geometry")?
   createdAt DateTime                 @default(now())
   updatedAt DateTime                 @updatedAt
+  SOS       SOS[]
 }
 
 enum ProfessionalStatus {
@@ -65,6 +67,26 @@ model EmergencyContact {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    Int
+}
+
+model SOS {
+  id             Int                      @id @default(autoincrement())
+  location       Unsupported("geometry")?
+  user           User                     @relation(fields: [userId], references: [id])
+  message        String
+  status         SOSStatus                @default(INITIATED)
+  professional   Professional?            @relation(fields: [professionalId], references: [id])
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+  userId         Int
+  professionalId Int?
+}
+
+enum SOSStatus {
+  INITIATED
+  ACCEPTED
+  CANCELLED
+  COMPLETED
 }
 
 model spatial_ref_sys {
