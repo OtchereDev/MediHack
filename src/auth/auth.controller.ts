@@ -32,4 +32,12 @@ export class AuthController {
   async signupUser(@Body() body: SignupDTO) {
     return await this.authService.createUser(body);
   }
+
+  @Post('login-as-epa')
+  async signInAsEpa(@Body() signInDto: LoginDTO) {
+    return await this.authService.signInAsEpa(
+      signInDto.email,
+      signInDto.password,
+    );
+  }
 }
