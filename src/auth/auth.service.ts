@@ -2,23 +2,46 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { ResetPasswordDTO, SignupDTO } from './dto/auth.dto';
+import { AdminService } from 'src/admin/admin.service';
+import bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UserService,
     private jwtService: JwtService,
+    private adminService: AdminService,
   ) {}
 
   async signIn(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(email);
 
-    if (user?.password !== pass) {
+    const matches = bcrypt.compareSync(pass, user?.password);
+
+    if (!matches) {
       throw new UnauthorizedException();
     }
 
     const { password, ...result } = user;
     const payload = { sub: user.id, email: user.email };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+      user: result,
+    };
+  }
+
+  async signInAsEpa(email: string, pass: string): Promise<any> {
+    const user = await this.adminService.findProfessional(email);
+
+    const matches = bcrypt.compareSync(pass, user?.password);
+
+    if (!matches) {
+      throw new UnauthorizedException();
+    }
+
+    const { password, ...result } = user;
+    const payload = { sub: user.id, email: user.email, type: 'epa' };
 
     return {
       access_token: await this.jwtService.signAsync(payload),

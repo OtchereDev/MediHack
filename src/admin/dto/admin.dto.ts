@@ -42,11 +42,10 @@ export class CreateProfessionalDTO {
 
 export class LocationUpdateDTO {
   @IsLatitude()
+  @ApiProperty()
   latitude: string;
 
   @IsLongitude()
+  @ApiProperty()
   longitude: string;
-
-  @IsNotEmpty()
-  id: number;
 }

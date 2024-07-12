@@ -14,7 +14,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { EmergencyService } from './emergency.service';
 import { EmergencyContactDTO } from './dto';
-import { AuthGuard } from 'src/user/auth.guard';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { Request, Response } from 'express';
 
 @Controller('emergency')
