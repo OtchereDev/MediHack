@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User, ForgotPassword } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import otp from 'src/utils/otp';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { MailService } from 'src/mail/mail.service';
 import { SignupDTO } from 'src/auth/dto/auth.dto';
 
