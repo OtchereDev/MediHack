@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for medihack on 2024-07-11T18:11:13+01:00
+# fly.toml app configuration file generated for medihack-long-morning-9882 on 2024-07-13T01:36:42+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'medihack'
+app = 'medihack-long-morning-9882'
 primary_region = 'ewr'
 
 [build]
