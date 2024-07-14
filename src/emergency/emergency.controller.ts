@@ -31,6 +31,8 @@ export class EmergencyController {
   ) {
     const user = req.user;
 
+    console.log('user:', user);
+
     const response = await this.service.addEmergencyContact(body, user.id);
 
     return res.status(response.status).json(response.data);
