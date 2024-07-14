@@ -27,7 +27,7 @@ export class SosController {
   ) {
     const user = req.user;
 
-    const response = await this.service.requestSOS(body, user.id);
+    const response = await this.service.requestSOS(body, user.sub);
 
     return res.status(response.status).json(response.data);
   }
@@ -41,7 +41,7 @@ export class SosController {
   ) {
     const user = req.user;
 
-    const response = await this.service.acceptSOS(user.id, id);
+    const response = await this.service.acceptSOS(user.sub, id);
 
     return res.status(response.status).json(response.status);
   }

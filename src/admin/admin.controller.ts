@@ -21,6 +21,6 @@ export class AdminController {
     @Req() req: any,
   ) {
     const user = req.user;
-    return await this.adminService.updateProfessionalLocation(body, user.id);
+    return await this.adminService.updateProfessionalLocation(body, user.sub);
   }
 }

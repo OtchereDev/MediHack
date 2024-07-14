@@ -31,9 +31,7 @@ export class EmergencyController {
   ) {
     const user = req.user;
 
-    console.log('user:', user);
-
-    const response = await this.service.addEmergencyContact(body, user.id);
+    const response = await this.service.addEmergencyContact(body, user.sub);
 
     return res.status(response.status).json(response.data);
   }
@@ -43,7 +41,7 @@ export class EmergencyController {
   async getMyEmergencyContact(@Req() req: any, @Res() res: Response) {
     const user = req.user;
 
-    const response = await this.service.getMyEmergencyContact(user.id);
+    const response = await this.service.getMyEmergencyContact(user.sub);
 
     return res.status(response.status).json(response.data);
   }
@@ -57,7 +55,7 @@ export class EmergencyController {
   ) {
     const user = req.user;
 
-    const response = await this.service.deleteEmergencyContact(id, user.id);
+    const response = await this.service.deleteEmergencyContact(id, user.sub);
 
     return res.status(response.status).json(response.data);
   }
@@ -74,7 +72,7 @@ export class EmergencyController {
 
     const response = await this.service.updateEmergencyContact(
       id,
-      user.id,
+      user.sub,
       body,
     );
 
@@ -90,7 +88,7 @@ export class EmergencyController {
   ) {
     const user = req.user;
 
-    const response = await this.service.getEmergencyContact(id, user.id);
+    const response = await this.service.getEmergencyContact(id, user.sub);
 
     return res.status(response.status).json(response.data);
   }
