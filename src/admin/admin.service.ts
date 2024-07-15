@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateProfessionalDTO, LocationUpdateDTO } from './dto/admin.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AdminService {
@@ -18,9 +19,13 @@ export class AdminService {
       };
     }
 
+    const saltRounds = 10;
+    const hashPassword = bcrypt.hashSync(body.password, saltRounds);
+
     await this.prisma.professional.create({
       data: {
         ...body,
+        password: hashPassword,
       },
     });
 
